@@ -417,3 +417,5 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,android,androidstudio,xcode,xcodeinjection,java,kotlin,objective-c,linux,firebase,vim
 
+lib/firebase_options.dart
+android/firebase_app_id_file.json
