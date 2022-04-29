@@ -1,9 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentification/page/add_user_page.dart';
-import 'package:services_catalog/image_collection/image.dart';
-
 import '../widget/appbar_widget.dart';
 import '../widget/profile_widget.dart';
 import 'editing_user_profile_page.dart';
