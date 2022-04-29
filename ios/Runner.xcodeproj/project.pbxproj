@@ -24,7 +24,7 @@
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPosbundletprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:services_catalog/firebase_options.dart';
 import 'package:services_catalog/map_screen.dart';
 
+import 'authentification/ui/authentification.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MapScreen(),
+      home: Authentication(),
     );
   }
 }
