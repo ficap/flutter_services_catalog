@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:services_catalog/sidebar/widget/carousel/carousel_slider.dart';
 import '../widget/appbar_widget.dart';
 import '../widget/profile_widget.dart';
 import 'editing_user_profile_page.dart';
@@ -39,26 +40,22 @@ class UserPage extends StatelessWidget {
                 data['email'],
                 style: TextStyle(color: Colors.grey),
               ),
+              const SizedBox(height: 24),
+              Text(
+                'About',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                data['about'],
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
             ],
           ),
           const SizedBox(height: 24),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'About',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  data['about'],
-                  style: TextStyle(fontSize: 16, height: 1.4),
-                ),
-              ],
-            )
-          ),
+          CarouselSliderWidget(uid: uid,),
+          const SizedBox(height: 24),
+
         ],
       ),
     );

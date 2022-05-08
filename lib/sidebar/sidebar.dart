@@ -21,17 +21,6 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final email = 'mark@facebook.com';
-    // final urlImage =
-    //     'https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg';
-
-
-    // final _providerUserDataCollection = FirebaseFirestore.instance
-    //     .collection('users').withConverter<ProviderUserDataModel>(
-    //   fromFirestore: (document, options) => ProviderUserDataModel.fromJson(document.data()!),
-    //   toFirestore: (model, options) => model.toJson(),
-    // );
-
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     var uid = user?.uid;

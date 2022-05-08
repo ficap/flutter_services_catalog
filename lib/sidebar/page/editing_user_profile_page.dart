@@ -1,18 +1,12 @@
 // import 'dart:html';
 import 'dart:io';
 
-// import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_image/firebase_image.dart';
 import 'package:path/path.dart' as Path;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:services_catalog/sidebar/page/user_profil_page.dart';
-import 'package:services_catalog/sidebar/upload_image/upload_file_to_storage.dart';
 
 import '../../authentification/ui/home_page.dart';
 import '../../user/my_user.dart';
@@ -51,20 +45,6 @@ class EditProfilePage extends StatelessWidget {
             imagePath: imagePath!,
             isEdit: true,
             onClicked: () async {
-              // final image = await ImagePicker()
-              //     .getImage(source: ImageSource.gallery);
-              // if (image == null) return;
-              // //TODO implement editing image
-              // final directory = await getApplicationDocumentsDirectory();
-              // final name = Path.basename(image.path);
-              // final imageFile = File('${directory.path}/$name');
-              // final newImage =
-              //     await File(image.path).copy(imageFile.path);
-              //
-              //
-              // newImagePath = newImage.path;
-
-              // TODO this piece of code upload image to storage
               final ImagePicker _picker = ImagePicker();
               final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
               if (pickedFile != null) {
@@ -72,18 +52,14 @@ class EditProfilePage extends StatelessWidget {
                 //
                 if (_photo == null) return;
                 final fileName = Path.basename(_photo!.path);
-                final destination = 'files/$fileName';
+                final destination = 'files/' + uid;
 
                 try {
                   final ref = firebase_storage.FirebaseStorage.instance
-                      .ref(destination)
-                      .child('file/');
+                      .ref(destination + "/picture_profile")
+                      .child('picture');
                   await ref.putFile(_photo!);
                   newImagePath = "gs://second-db-fluter.appspot.com/" + ref.fullPath;
-                  //gs://second-db-fluter.appspot.com/files/image_picker1246458124215313543.jpg/file
-                  //files/image_picker2323839028272677590.jpg/file
-                  // print(ref.fullPath);
-
                 } catch (e) {
                   print('error occured');
                 }
@@ -145,7 +121,6 @@ class EditProfilePage extends StatelessWidget {
 
 
 
-  //TODO duplicate code
   Future createUser(MyUser user) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     // var idUser = auth.currentUser?.uid;
