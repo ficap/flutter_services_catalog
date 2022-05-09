@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_image/firebase_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,8 @@ class CarouselSliderWidget extends StatelessWidget {
                     itemCount: snapshot.data?.items.length,
                     itemBuilder: (context, int itemIndex, int pageViewIndex) {
                       return Image(
-                        image: FirebaseImage(
-                            'gs://second-db-fluter.appspot.com/files/' + uid +
+                        image: FirebaseImage("gs://" +
+                            FirebaseStorage.instance.ref().bucket + "/files/" + uid +
                                 "/picture_gallery/" + snapshot.data!
                                 .items[itemIndex].name),
                       );
@@ -66,6 +67,7 @@ class CarouselSliderWidget extends StatelessWidget {
 
         RaisedButton(
           onPressed: () async {
+            print(FirebaseStorage.instance.ref().bucket);
             final destination = 'files/' + uid + "/picture_gallery";
             final results = await FilePicker.platform.pickFiles(
               allowMultiple: false,
