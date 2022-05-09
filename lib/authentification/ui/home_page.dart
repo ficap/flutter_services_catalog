@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:services_catalog/di.dart';
 import 'package:services_catalog/map_screen.dart';
 import 'package:services_catalog/sidebar/sidebar.dart';
 
@@ -21,7 +23,10 @@ class _HomePageState extends State<HomePage> {
       drawer: SideBar(),
       body:
       Center(
-          child: MapScreen()
+          child: Provider<DI>(
+              create: (context) => DI(),
+              dispose: (context, di) => di.dispose(),
+              child: MapScreen()),
       ),
     );
 
