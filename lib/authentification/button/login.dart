@@ -8,8 +8,9 @@ import '../ui/home_page.dart';
 class LoginButton extends StatelessWidget {
   final TextEditingController emailField;
   final TextEditingController passwordField;
+  final Color buttonColor;
 
-  const LoginButton({Key? key, required this.emailField, required this.passwordField}) : super(key: key);
+  const LoginButton({Key? key, required this.emailField, required this.passwordField, required this.buttonColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class LoginButton extends StatelessWidget {
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: Colors.white,
+        color: buttonColor,
       ),
       child: MaterialButton(
           onPressed: () async {
@@ -33,7 +34,7 @@ class LoginButton extends StatelessWidget {
               );
             }
           },
-          child: Text("Login")),
+          child: Text("Login", style: TextStyle(color: Colors.white))),
     );
   }
 

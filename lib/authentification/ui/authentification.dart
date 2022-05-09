@@ -5,42 +5,41 @@ import '../button/register.dart';
 import '../field/email_field.dart';
 import '../field/password_field.dart';
 
-class Authentication extends StatefulWidget {
-  const Authentication({Key? key}) : super(key: key);
 
-  @override
-  _AuthenticationState createState() => _AuthenticationState();
-}
 
-class _AuthenticationState extends State<Authentication> {
+class Authentication extends StatelessWidget {
   final TextEditingController _emailField = TextEditingController();
   final TextEditingController _passwordField = TextEditingController();
+  final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
+  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
+  final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          color: Colors.blueAccent,
+        decoration: BoxDecoration(
+          color: backgroundColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            EmailField(emailField: _emailField),
+            EmailField(emailField: _emailField, textColor: textColor),
 
             SizedBox(height: MediaQuery.of(context).size.height / 35),
 
-            PasswordField(passwordField: _passwordField),
+            PasswordField(passwordField: _passwordField, textColor: textColor),
 
             SizedBox(height: MediaQuery.of(context).size.height / 35),
 
-            RegisterButton(emailField: _emailField, passwordField: _passwordField),
+            RegisterButton(emailField: _emailField, passwordField: _passwordField, buttonColor: buttonColor),
 
             SizedBox(height: MediaQuery.of(context).size.height / 35),
 
-            LoginButton(emailField: _emailField, passwordField: _passwordField)
+            LoginButton(emailField: _emailField, passwordField: _passwordField, buttonColor: buttonColor)
           ],
         ),
       ),

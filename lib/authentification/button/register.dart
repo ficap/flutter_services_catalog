@@ -10,8 +10,9 @@ class RegisterButton extends StatelessWidget {
 
   final TextEditingController emailField;
   final TextEditingController passwordField;
+  final Color buttonColor;
 
-  const RegisterButton({Key? key, required this.emailField, required this.passwordField}) : super(key: key);
+  const RegisterButton({Key? key, required this.emailField, required this.passwordField, required this.buttonColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class RegisterButton extends StatelessWidget {
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        color: Colors.white,
+        color: buttonColor,
       ),
       child: MaterialButton(
         onPressed: () async {
@@ -35,7 +36,7 @@ class RegisterButton extends StatelessWidget {
             );
           }
         },
-        child: Text("Register"),
+        child: Text("Register", style: TextStyle(color: Colors.white)),
       ),
     );
   }

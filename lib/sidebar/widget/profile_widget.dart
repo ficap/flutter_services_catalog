@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,6 @@ class ProfileWidget extends StatelessWidget {
     );
   }
 
-  // TODO image uploading from firebase
   Widget buildImage() {
     final image = FirebaseImage(imagePath);
 

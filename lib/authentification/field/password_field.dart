@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class PasswordField extends StatelessWidget {
 
   final TextEditingController passwordField;
+  final Color textColor;
 
-  const PasswordField({Key? key, required this.passwordField}) : super(key: key);
+  const PasswordField({Key? key, required this.passwordField, required this.textColor}) : super(key: key);
 
 
   @override
@@ -13,18 +14,22 @@ class PasswordField extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width / 1.3,
       child: TextFormField(
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: textColor),
         controller: passwordField,
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: textColor),
+          ),
           hintText: "password",
           hintStyle: TextStyle(
-            color: Colors.white,
+            color: textColor,
           ),
           labelText: "Password",
           labelStyle: TextStyle(
-            color: Colors.white,
+            color: textColor,
           ),
+
         ),
       ),
     );

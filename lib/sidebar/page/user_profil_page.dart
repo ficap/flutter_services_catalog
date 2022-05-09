@@ -8,16 +8,24 @@ class UserPage extends StatelessWidget {
   final String? imagePath;
   final Map<String, dynamic> data;
   final String uid;
+  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
+  final Color userBackgroundColor = Colors.white;
+  // final Color userBackgroundColor = Color.fromRGBO(199, 230, 190, 90);
 
 
-  const UserPage({
+  UserPage({
     Key? key, this.imagePath, required this.data, required this.uid,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      backgroundColor: userBackgroundColor,
+      appBar: AppBar(
+        title: Text('Profile'),
+        backgroundColor: textColor,
+      ),
+
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
@@ -25,27 +33,33 @@ class UserPage extends StatelessWidget {
             imagePath: imagePath!,
             onClicked: () {
               Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => EditProfilePage(data: data, imagePath: imagePath!, uid: uid!,)),);
+              MaterialPageRoute(builder: (context) => EditProfilePage(data: data, imagePath: imagePath!, uid: uid,)),);
               }, isEdit: true,
           ),
           const SizedBox(height: 24),
-          // buildName(),
+
           Column(
             children: [
               Text(data['name'],
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
+
               const SizedBox(height: 4),
+
               Text(
                 data['email'],
                 style: TextStyle(color: Colors.grey),
               ),
+
               const SizedBox(height: 24),
-              Text(
+
+              const Text(
                 'About',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
+
               const SizedBox(height: 16),
+
               Text(
                 data['about'],
                 style: TextStyle(fontSize: 16, height: 1.4),
@@ -53,7 +67,9 @@ class UserPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          CarouselSliderWidget(uid: uid,),
+
+          CarouselSliderWidget(uid: uid),
+
           const SizedBox(height: 24),
 
         ],

@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:services_catalog/entities/provider_model.dart';
+import 'package:services_catalog/sidebar/page/specialist_page.dart';
+import 'package:services_catalog/sidebar/page/user_profil_page.dart';
 
 class ProviderDetailScreen extends StatelessWidget {
 
@@ -26,12 +28,13 @@ class ProviderDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Name: ${model.name}"),
-            Text("ServiceType: ${model.serviceType}"),
-            Text("Address: ${model.address}"),
-            Text("Position: ${model.geopoint.longitude}, ${model.geopoint.latitude}"),
-            Text("Email: ${model.email}"),
-            Text("Phone: ${model.phone}")
+            // Text("Name: ${model.name}"),
+            // Text("ServiceType: ${model.serviceType}"),
+            // Text("Address: ${model.address}"),
+            // Text("Position: ${model.geopoint.longitude}, ${model.geopoint.latitude}"),
+            // Text("Email: ${model.email}"),
+            // Text("Phone: ${model.phone}")
+            SpecialistPage(model: model),
           ],
         ),
       ),

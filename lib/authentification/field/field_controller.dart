@@ -1,26 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EmailField extends StatelessWidget {
+class FieldController extends StatelessWidget {
 
-  final TextEditingController emailField;
+  final TextEditingController controller;
   final Color textColor;
+  final String hintText;
+  final String lableText;
 
-  const EmailField({Key? key, required this.emailField, required this.textColor}) : super(key: key);
+  const FieldController({Key? key, required this.controller, required this.textColor, required this.hintText, required this.lableText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
       child: TextFormField(
         style: TextStyle(color: textColor),
-        controller: emailField,
+        controller: controller,
         decoration: InputDecoration(
-          hintText: "something@email.com",
+          hintText: hintText,
           hintStyle: TextStyle(
             color: textColor,
           ),
-          labelText: "Email",
+          labelText: lableText,
           labelStyle: TextStyle(
             color: textColor,
           ),

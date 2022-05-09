@@ -1,25 +1,20 @@
-// import 'dart:html';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:path/path.dart' as Path;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 
 import '../../authentification/ui/home_page.dart';
 import '../../user/my_user.dart';
-import '../button/button_widget.dart';
 import '../widget/appbar_widget.dart';
 import '../widget/profile_widget.dart';
 import '../widget/text_field_widget.dart';
 
 class EditProfilePage extends StatelessWidget {
-  // final String? name;
   String imagePath;
-  // final String? email;
-  // final String? about;
   final Map<String, dynamic> data;
   final String uid;
 
@@ -42,23 +37,22 @@ class EditProfilePage extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-            imagePath: imagePath!,
+            imagePath: imagePath,
             isEdit: true,
             onClicked: () async {
               final ImagePicker _picker = ImagePicker();
               final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
               if (pickedFile != null) {
-                File? _photo = File(pickedFile!.path);
+                File? photo = File(pickedFile.path);
                 //
-                if (_photo == null) return;
-                final fileName = Path.basename(_photo!.path);
+                if (photo == null) return;
                 final destination = 'files/' + uid;
 
                 try {
                   final ref = firebase_storage.FirebaseStorage.instance
                       .ref(destination + "/picture_profile")
                       .child('picture');
-                  await ref.putFile(_photo!);
+                  await ref.putFile(photo);
                   newImagePath = "gs://second-db-fluter.appspot.com/" + ref.fullPath;
                 } catch (e) {
                   print('error occured');
@@ -67,16 +61,14 @@ class EditProfilePage extends StatelessWidget {
               } else {
                 print('No image selected.');
               }
-
-
-            },
+              },
                 ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Name',
-                  text: data['name'],
-                  onChanged: (newName) {nameController.text = newName;},
-                ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'Name',
+            text: data['name'],
+            onChanged: (newName) {nameController.text = newName;},
+          ),
 
           const SizedBox(height: 24),
           TextFieldWidget(
@@ -85,37 +77,38 @@ class EditProfilePage extends StatelessWidget {
             onChanged: (speciality) {serviceTypeController.text = speciality;},
           ),
 
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'About',
-                  text: data['about'],
-                  maxLines: 10,
-                  onChanged: (about) {aboutController.text = about;},
-                ),
           const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'About',
+            text: data['about'],
+            maxLines: 10,
+            onChanged: (about) {aboutController.text = about;},
+          ),
+
+          const SizedBox(height: 24),
+
           ElevatedButton(
               onPressed: () {
-                if (true) {
-                  final user = MyUser(
-                    serviceType: serviceTypeController.text,
-                    name: nameController.text,
-                    about: aboutController.text,
-                    imagePath: newImagePath,
-                  );
-                  createUser(user);
+                  if (true) {
+                    final user = MyUser(
+                      serviceType: serviceTypeController.text,
+                      name: nameController.text,
+                      about: aboutController.text,
+                      imagePath: newImagePath,
+                    );
+                    createUser(user);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      // builder: (context) => UserPage(data: data, uid: uid),
-                      builder: (context) => HomePage(),
-                    ),
-                  );
-                }
-              },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    );
+                  }
+                },
               child: Text("Save"))
-              ],
-            ),
+        ],
+      ),
     );
   }
 
