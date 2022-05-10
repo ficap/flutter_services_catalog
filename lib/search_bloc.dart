@@ -6,8 +6,10 @@ import 'package:services_catalog/entities/provider_model.dart';
 
 
 class SearchBloc {
-  final Sink<String> onTextChanged;
-  final Stream<Iterable<ProviderModel>> state;
+  final Sink<String> _onFilterTextChanged;
+  final Stream<Iterable<ProviderModel>> filteredProvidersStream;
+
+  void updateFilter(String term) => _onFilterTextChanged.add(term);
 
   factory SearchBloc(CollectionReference<ProviderModel> providers) {
     final Stream<Iterable<ProviderModel>> snapshots = providers.snapshots()
@@ -24,7 +26,7 @@ class SearchBloc {
         .debounceTime(const Duration(milliseconds: 250))
         .startWith("");
 
-    final state = Rx.combineLatest2(
+    final filteredProvidersStream = Rx.combineLatest2(
         snapshots, textStream, (Iterable<ProviderModel> snapshot, String text) {
       if (text.isEmpty) return snapshot;
 
@@ -35,13 +37,13 @@ class SearchBloc {
     });
 
 
-    return SearchBloc._(onTextChanged, state);
+    return SearchBloc._(onTextChanged, filteredProvidersStream);
   }
 
-  SearchBloc._(this.onTextChanged, this.state);
+  SearchBloc._(this._onFilterTextChanged, this.filteredProvidersStream);
 
   void dispose() {
-    onTextChanged.close();
+    _onFilterTextChanged.close();
   }
 
 }

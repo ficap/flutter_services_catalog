@@ -127,7 +127,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             },
           ),
           StreamMarkerLayerOptions<ProviderModel>(
-            stream: di.searchBloc.state,
+            stream: di.searchBloc.filteredProvidersStream,
             markerCreator: <ProviderModel>(document) {
               return CircularMarker(
                 point: toLatLng(document.geopoint),
@@ -163,7 +163,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             // padding: const EdgeInsets.all(10),
             padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
             child: TextField(
-              onChanged: di.searchBloc.onTextChanged.add,
+              onChanged: di.searchBloc.updateFilter,
               controller: _searchFieldController,
               decoration: InputDecoration(
                 filled: true,
@@ -171,7 +171,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 suffixIcon: IconButton(
                   onPressed: () {
                     _searchFieldController.clear();
-                    di.searchBloc.onTextChanged.add("");
+                    di.searchBloc.updateFilter("");
                   },
                   icon: const Icon(Icons.clear),
                 ),
