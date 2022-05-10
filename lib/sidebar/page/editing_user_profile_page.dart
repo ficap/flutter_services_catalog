@@ -71,23 +71,19 @@ class EditProfilePage extends StatelessWidget {
                 ),
           const SizedBox(height: 24),
           TextFieldWidget(
-            label: 'Name',
-            text: data['name'],
+            controller: data['name'],
             onChanged: (newName) {nameController.text = newName;},
           ),
 
           const SizedBox(height: 24),
           TextFieldWidget(
-            label: 'Type of service',
-            text: data['serviceType'],
             onChanged: (speciality) {serviceTypeController.text = speciality;},
+            controller: data['serviceType'],
           ),
 
           const SizedBox(height: 24),
           TextFieldWidget(
-            label: 'About',
-            text: data['about'],
-            maxLines: 10,
+            controller: data['about'],
             onChanged: (about) {aboutController.text = about;},
           ),
 
