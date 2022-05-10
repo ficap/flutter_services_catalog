@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_image/firebase_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:services_catalog/authentification/ui/authentification.dart';
 
 import 'page/setting_page.dart';
 import 'page/user_profil_page.dart';
@@ -26,7 +28,25 @@ class SideBar extends StatelessWidget {
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            // return Text("Something went wrong");
+            return Drawer(
+              child: Material(
+                color: Color.fromRGBO(199, 230, 190, 90),
+                child: ListView(
+                  children: <Widget>[
+                    buildHeader(
+                      urlImage: "gs://" + FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
+                      name: "Sign in",
+                      email: "",
+                      onClicked: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Authentication()
+                      )),
+                    ),
+                  ],
+                ),
+
+              ),
+            );
           }
 
           if (snapshot.hasData && !snapshot.data!.exists) {
@@ -56,11 +76,14 @@ class SideBar extends StatelessWidget {
                       padding: padding,
                       child: Column(
                         children: [
-                          const SizedBox(height: 12),
+                          SizedBox(height: 12),
                           buildMenuItem(
-                            text: 'Settings',
-                            icon: Icons.settings,
-                            onClicked: () => selectedItem(context, 0),
+                            text: 'Logout',
+                            icon: Icons.logout,
+                            onClicked: () => {
+                              FirebaseAuth.instance.signOut(),
+                              Navigator.of(context).pop()
+                            }
                           ),
                         ],
                       ),

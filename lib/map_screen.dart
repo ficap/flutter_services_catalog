@@ -108,7 +108,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     );
 
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
@@ -163,7 +163,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         ],
         nonRotatedChildren: [
           Container(
-            padding: const EdgeInsets.all(10),
+            // padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
             child: TextField(
               onChanged: di.searchBloc.onTextChanged.add,
               controller: _searchFieldController,

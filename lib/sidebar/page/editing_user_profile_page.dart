@@ -17,6 +17,9 @@ class EditProfilePage extends StatelessWidget {
   String imagePath;
   final Map<String, dynamic> data;
   final String uid;
+  final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
+  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
+  final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
 
   EditProfilePage({Key? key, required this.data, required this.imagePath, required this.uid}) : super(key: key);
 
@@ -31,7 +34,10 @@ class EditProfilePage extends StatelessWidget {
 
     String newImagePath = data['imagePath'];
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+        backgroundColor: textColor,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
@@ -87,26 +93,34 @@ class EditProfilePage extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          ElevatedButton(
-              onPressed: () {
-                  if (true) {
-                    final user = MyUser(
-                      serviceType: serviceTypeController.text,
-                      name: nameController.text,
-                      about: aboutController.text,
-                      imagePath: newImagePath,
-                    );
-                    createUser(user);
+          Container(
+              width: 300,
+              height: 45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: buttonColor,
+              ),
+              child: MaterialButton(
+                  onPressed: () {
+                    if (true) {
+                      final user = MyUser(
+                        serviceType: serviceTypeController.text,
+                        name: nameController.text,
+                        about: aboutController.text,
+                        imagePath: newImagePath,
+                      );
+                      createUser(user);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    );
-                  }
-                },
-              child: Text("Save"))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
+                      );
+                    }},
+                  child: Text("Save"))
+          ),
+          const SizedBox(height: 24),
         ],
       ),
     );
