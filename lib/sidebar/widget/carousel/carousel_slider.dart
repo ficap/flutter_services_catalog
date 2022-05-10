@@ -12,6 +12,9 @@ class CarouselSliderWidget extends StatelessWidget {
   final String uid;
   static int imageCount = 0;
   final Storage storage = Storage();
+  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
+  final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
+  final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
   CarouselSliderWidget({Key? key, required this.uid}) : super(key: key);
 
   @override
@@ -65,31 +68,39 @@ class CarouselSliderWidget extends StatelessWidget {
           }
         ),
 
-        RaisedButton(
-          onPressed: () async {
-            print(FirebaseStorage.instance.ref().bucket);
-            final destination = 'files/' + uid + "/picture_gallery";
-            final results = await FilePicker.platform.pickFiles(
-              allowMultiple: false,
-              type: FileType.custom,
-              allowedExtensions: ['png', 'jpg'],
-            );
-            if (results == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('No file selected'),
-                ),
-              );
-              return null;
-            }
-            final path = results.files.single.path!;
-            final fileName = results.files.single.name;
+        Container(
+        // width: 300,
+        height: 45,
+        decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: buttonColor,
+        ),
+        child: MaterialButton(
+              onPressed: () async {
+                print(FirebaseStorage.instance.ref().bucket);
+                final destination = 'files/' + uid + "/picture_gallery";
+                final results = await FilePicker.platform.pickFiles(
+                  allowMultiple: false,
+                  type: FileType.custom,
+                  allowedExtensions: ['png', 'jpg'],
+                );
+                if (results == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('No file selected'),
+                    ),
+                  );
+                  return null;
+                }
+                final path = results.files.single.path!;
+                final fileName = results.files.single.name;
 
-            storage
-                .uploadFile(path, destination, fileName)
-                .then((value) => print('Done'));
-          },
-          child: Text('Add new photo'),
+                storage
+                    .uploadFile(path, destination, fileName)
+                    .then((value) => print('Done'));
+              },
+              child: Text('Add new photo'),
+            )
         )
       ],
     );

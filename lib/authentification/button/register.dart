@@ -28,7 +28,7 @@ class RegisterButton extends StatelessWidget {
           bool shouldNavigate =
           await register(emailField.text, passwordField.text);
           if (shouldNavigate) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => AddUserPage(),

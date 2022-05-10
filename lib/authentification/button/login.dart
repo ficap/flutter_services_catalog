@@ -26,7 +26,7 @@ class LoginButton extends StatelessWidget {
             bool shouldNavigate =
             await signIn(emailField.text, passwordField.text);
             if (shouldNavigate) {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => HomePage(),
