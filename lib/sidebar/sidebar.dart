@@ -27,7 +27,7 @@ class SideBar extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
-          if (snapshot.hasError) {
+          if (snapshot.hasError || snapshot.hasData && !snapshot.data!.exists) {
             // return Text("Something went wrong");
             return Drawer(
               child: Material(
@@ -38,7 +38,7 @@ class SideBar extends StatelessWidget {
                       urlImage: "gs://" + FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
                       name: "Sign in",
                       email: "",
-                      onClicked: () => Navigator.of(context).push(MaterialPageRoute(
+                      onClicked: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => Authentication()
                       )),
                     ),
@@ -49,9 +49,9 @@ class SideBar extends StatelessWidget {
             );
           }
 
-          if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
-          }
+          // if (snapshot.hasData && !snapshot.data!.exists) {
+          //   return Text("Document does not exist");
+          // }
 
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
