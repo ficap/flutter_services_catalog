@@ -131,10 +131,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             markerCreator: <ProviderModel>(document) {
               return CircularMarker(
                 point: toLatLng(document.geopoint),
-                label: (document.serviceType as String)
-                    .characters
-                    .first
-                    .toUpperCase(),
+                label: (document.serviceType as String),
                 onTap: () {
                   var x = _mapController.centerZoomFitBounds(
                     LatLngBounds.fromPoints([toLatLng(document.geopoint)]),
