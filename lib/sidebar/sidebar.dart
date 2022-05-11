@@ -82,7 +82,10 @@ class SideBar extends StatelessWidget {
                             icon: Icons.logout,
                             onClicked: () => {
                               FirebaseAuth.instance.signOut(),
-                              Navigator.of(context).pop()
+                              Navigator.pushReplacement(
+                                  context, MaterialPageRoute(
+                                  builder: (context) => Authentication()
+                              ))
                             }
                           ),
                         ],

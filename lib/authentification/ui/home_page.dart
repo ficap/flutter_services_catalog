@@ -7,6 +7,7 @@ import 'package:services_catalog/sidebar/sidebar.dart';
 import '../page/add_user_page.dart';
 
 class HomePage extends StatefulWidget {
+  static String id = "home";
   HomePage({Key? key}) : super(key: key);
 
   @override
