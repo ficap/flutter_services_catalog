@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/sidebar/widget/profile_widget.dart';
+import 'package:services_catalog/sidebar/widget/user_widget/profile_widget.dart';
 
-import '../../entities/provider_model.dart';
-import '../widget/appbar_widget.dart';
+import 'package:services_catalog/entities/provider_model.dart';
 
 class SpecialistPage extends StatelessWidget {
   static const routeName = '/provider-detail-screen';
@@ -24,18 +22,18 @@ class SpecialistPage extends StatelessWidget {
         builder:
         (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            return const Text("Something went wrong");
           }
 
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
+            return const Text("Document does not exist");
           }
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
             return Scaffold(
               appBar: buildAppBar(context),
               body: ListView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: [
                   ProfileWidget(
                       imagePath: data['imagePath'],
@@ -45,9 +43,24 @@ class SpecialistPage extends StatelessWidget {
               ),
             );
           }
-          return Text("loading");
+          return const Text("loading");
         }
     );
   }
 
+  AppBar buildAppBar(BuildContext context) {
+    final icon = CupertinoIcons.moon_stars;
+
+    return AppBar(
+      leading: const BackButton(),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      actions: [
+        IconButton(
+          icon: Icon(icon),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
 }

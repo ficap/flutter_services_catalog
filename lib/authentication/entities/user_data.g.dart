@@ -1,7 +1,7 @@
-part of 'provider_user_data.dart';
+part of 'user_data.dart';
 
-ProviderUserDataModel _$ProviderUserDataModelFromJson(Map<String, dynamic> json) =>
-    ProviderUserDataModel(
+UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) =>
+    UserDataModel(
       json['id'] as String,
       json['name'] as String,
       json['serviceType'] as String,
@@ -10,7 +10,7 @@ ProviderUserDataModel _$ProviderUserDataModelFromJson(Map<String, dynamic> json)
       json['about'] as String? ?? '',
     );
 
-Map<String, dynamic> _$ProviderUserDataModelToJson(ProviderUserDataModel instance) {
+Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'name': instance.name,
@@ -19,11 +19,6 @@ Map<String, dynamic> _$ProviderUserDataModelToJson(ProviderUserDataModel instanc
     'imagePath': instance.imagePath,
     'about': instance.about,
   };
-  // void writeNotNull(String key, dynamic value) {
-  //   if (value != null) {
-  //     val[key] = value;
-  //   }
-  // }
 
   return val;
 }
