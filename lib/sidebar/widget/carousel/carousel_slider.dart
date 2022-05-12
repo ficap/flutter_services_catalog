@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import '../../../storage/storage.dart';
+import 'package:services_catalog/fire_base/storage.dart';
 
 
 class CarouselSliderWidget extends StatelessWidget {
@@ -70,7 +70,7 @@ class CarouselSliderWidget extends StatelessWidget {
 
         Container(
         // width: 300,
-        height: 45,
+        height: 50,
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         color: buttonColor,
@@ -90,7 +90,7 @@ class CarouselSliderWidget extends StatelessWidget {
                         content: Text('No file selected'),
                     ),
                   );
-                  return null;
+                  return;
                 }
                 final path = results.files.single.path!;
                 final fileName = results.files.single.name;
@@ -98,6 +98,8 @@ class CarouselSliderWidget extends StatelessWidget {
                 storage
                     .uploadFile(path, destination, fileName)
                     .then((value) => print('Done'));
+
+                Navigator.pop(context);
               },
               child: Text('Add new photo'),
             )

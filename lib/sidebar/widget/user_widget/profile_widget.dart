@@ -18,35 +18,30 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = FirebaseImage(imagePath);
     final color = Theme.of(context).colorScheme.primary;
 
     return Center(
       child: Stack(
         children: [
-          buildImage(),
+          ClipOval(
+            child: Material(
+            color: Colors.transparent,
+              child: Ink.image(
+                image: image,
+                fit: BoxFit.cover,
+                width: 128,
+                height: 128,
+                child: InkWell(onTap: onClicked),
+              ),
+            ),
+          ),
           Positioned(
             bottom: 0,
             right: 4,
             child: buildEditIcon(color),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildImage() {
-    final image = FirebaseImage(imagePath);
-
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: image,
-          fit: BoxFit.cover,
-          width: 128,
-          height: 128,
-          child: InkWell(onTap: onClicked),
-        ),
       ),
     );
   }

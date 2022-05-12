@@ -1,10 +1,7 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:services_catalog/fire_base/fire_base.dart';
 
-import '../fire_base/fire_base.dart';
-import '../page/add_user_page.dart';
-import '../ui/home_page.dart';
+import 'package:services_catalog/authentication/page/add_user_page.dart';
 
 class RegisterButton extends StatelessWidget {
 
@@ -36,7 +33,7 @@ class RegisterButton extends StatelessWidget {
             );
           }
         },
-        child: Text("Register", style: TextStyle(color: Colors.white)),
+        child: const Text("Register", style: const TextStyle(color: Colors.white)),
       ),
     );
   }

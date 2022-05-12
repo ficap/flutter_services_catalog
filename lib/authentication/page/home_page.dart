@@ -4,18 +4,11 @@ import 'package:services_catalog/di.dart';
 import 'package:services_catalog/map_screen.dart';
 import 'package:services_catalog/sidebar/sidebar.dart';
 
-import '../page/add_user_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static String id = "home";
-  HomePage({Key? key}) : super(key: key);
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           child: Provider<DI>(
               create: (context) => DI(),
               dispose: (context, di) => di.dispose(),
-              child: MapScreen()),
+              child: const MapScreen()),
       ),
     );
 

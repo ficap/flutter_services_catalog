@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../button/login.dart';
-import '../button/register.dart';
-import '../field/email_field.dart';
-import '../field/password_field.dart';
-import 'home_page.dart';
+import 'package:services_catalog/authentication/button/login.dart';
+import 'package:services_catalog/authentication/button/register.dart';
+import 'package:services_catalog/authentication/field/email_field.dart';
+import 'package:services_catalog/authentication/field/password_field.dart';
 
 
 
@@ -13,9 +10,11 @@ class Authentication extends StatelessWidget {
   static String id = "authentication";
   final TextEditingController _emailField = TextEditingController();
   final TextEditingController _passwordField = TextEditingController();
-  final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
-  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
-  final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
+  final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
+  final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
+  final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
+
+  Authentication({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,6 @@ class Authentication extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height / 35),
 
             LoginButton(emailField: _emailField, passwordField: _passwordField, buttonColor: buttonColor),
-
-
           ],
         ),
       ),

@@ -1,9 +1,7 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:services_catalog/entities/provider_model.dart';
-import 'package:services_catalog/sidebar/page/specialist_page.dart';
-import 'package:services_catalog/sidebar/page/user_profil_page.dart';
+import 'package:services_catalog/sidebar/page/user_page/specialist_popup.dart';
 
 class ProviderDetailScreen extends StatelessWidget {
 

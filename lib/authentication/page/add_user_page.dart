@@ -1,24 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentification/ui/home_page.dart';
+import 'package:services_catalog/authentication/page/home_page.dart';
 
-import '../../user/my_user.dart';
-import '../field/field_controller.dart';
+import 'package:services_catalog/authentication/entities/my_user.dart';
+import 'package:services_catalog/authentication/field/add_uder_field_controller.dart';
 
 
 class AddUserPage extends StatelessWidget {
   final controllerName = TextEditingController();
   final controllerServiceType = TextEditingController();
   final controllerAbout = TextEditingController();
-  final Color textColor = Color.fromRGBO(93, 107, 89, 42);
-  final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
-  final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
+  final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
+  final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
+  final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
+
+  AddUserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Add User'),
+      title: const Text('Add User'),
       backgroundColor: textColor,
     ),
     body: Container(
@@ -29,15 +31,15 @@ class AddUserPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          FieldController(controller: controllerName, textColor: textColor, hintText: "Jhon", lableText: "Name"),
+          AddUserFieldController(controller: controllerName, textColor: textColor, hintText: "Jhon", lableText: "Name"),
           //
           const SizedBox(height: 24),
 
-          FieldController(controller: controllerServiceType, textColor: textColor, hintText: "Your service offering", lableText: "Type of service"),
+          AddUserFieldController(controller: controllerServiceType, textColor: textColor, hintText: "Your service offering", lableText: "Type of service"),
           //
           const SizedBox(height: 24),
           //
-          FieldController(controller: controllerAbout, textColor: textColor, hintText: "Y22 years old, programmer", lableText: "Something about you"),
+          AddUserFieldController(controller: controllerAbout, textColor: textColor, hintText: "Y22 years old, programmer", lableText: "Something about you"),
           //
           const SizedBox(height: 32),
 
@@ -50,8 +52,8 @@ class AddUserPage extends StatelessWidget {
             ),
             child: MaterialButton(
               onPressed: () async {
-                if (!controllerServiceType.text.isEmpty
-                    && !controllerName.text.isEmpty) {
+                if (controllerServiceType.text.isNotEmpty
+                    && controllerName.text.isNotEmpty) {
                   final user = MyUser(
                     serviceType: controllerServiceType.text,
                     name: controllerName.text,
@@ -67,7 +69,7 @@ class AddUserPage extends StatelessWidget {
                     ),
                   );
                 }},
-              child: Text("Create", style: TextStyle(color: Colors.white)),
+              child: const Text("Create", style: TextStyle(color: Colors.white)),
             ),
           ),
         ],
@@ -75,7 +77,7 @@ class AddUserPage extends StatelessWidget {
     ),
   );
 
-  Future createUser(MyUser user) async {
+  static Future createUser(MyUser user) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var idUser = auth.currentUser?.uid;
     final docUser = FirebaseFirestore.instance.collection('users').doc(idUser);
