@@ -10,30 +10,31 @@ GeoPoint identity(GeoPoint value) {
 }
 
 
-@immutable
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class ProviderModel {
   @JsonKey(name: 'id')
-  final String id;
+  String id;
   @JsonKey(name: 'name')
-  final String name;
+  String name;
   @JsonKey(name: 'address')
-  final String address;
+  String address;
   @JsonKey(name: 'serviceType')
-  final String serviceType;
+  String serviceType;
+  @JsonKey(name: 'about')
+  String about;
   @JsonKey(name: 'phone', defaultValue: "")
-  final String phone;
+  String phone;
   @JsonKey(name: 'email', defaultValue: "")
-  final String email;
+  String email;
   @JsonKey(name: 'geopoint', toJson: identity, fromJson: identity)
-  final GeoPoint geopoint;
+  GeoPoint geopoint;
   @JsonKey(name: 'imagePath', defaultValue: "")
-  final String imagePath;
+  String imagePath;
 
 
-  ProviderModel.id(this.name, this.address, this.serviceType, this.geopoint, this.phone, this.email, this.imagePath) : id = const Uuid().v1();
+  ProviderModel.id(this.name, this.address, this.serviceType, this.geopoint, this.phone, this.email, this.imagePath, this.about) : id = const Uuid().v1();
 
-  const ProviderModel({required this.id, required this.name, required this.address, required this.serviceType, required this.geopoint, required this.phone, required this.email, required this.imagePath});
+  ProviderModel({this.id = "", this.name = "", this.address = "", this.serviceType = "", this.about = "", this.geopoint = const GeoPoint(0, 0), this.phone = "", this.email = "", this.imagePath = ""});
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) => _$ProviderModelFromJson(json);
   Map<String, dynamic> toJson() => _$ProviderModelToJson(this);

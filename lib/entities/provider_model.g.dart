@@ -8,13 +8,17 @@ part of 'provider_model.dart';
 
 ProviderModel _$ProviderModelFromJson(Map<String, dynamic> json) =>
     ProviderModel(
-      json['id'] as String,
-      json['name'] as String,
-      json['address'] as String,
-      json['serviceType'] as String,
-      identity(json['geopoint'] as GeoPoint),
-      json['phone'] as String? ?? '',
-      json['email'] as String? ?? '',
+      id: json['id'] as String? ?? "",
+      name: json['name'] as String? ?? "",
+      address: json['address'] as String? ?? "",
+      serviceType: json['serviceType'] as String? ?? "",
+      about: json['about'] as String? ?? "",
+      geopoint: json['geopoint'] == null
+          ? const GeoPoint(0, 0)
+          : identity(json['geopoint'] as GeoPoint),
+      phone: json['phone'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      imagePath: json['imagePath'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
@@ -23,6 +27,7 @@ Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
     'name': instance.name,
     'address': instance.address,
     'serviceType': instance.serviceType,
+    'about': instance.about,
     'phone': instance.phone,
     'email': instance.email,
   };
@@ -34,5 +39,6 @@ Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
   }
 
   writeNotNull('geopoint', identity(instance.geopoint));
+  val['imagePath'] = instance.imagePath;
   return val;
 }
