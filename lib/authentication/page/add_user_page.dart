@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:services_catalog/authentication/page/home_page.dart';
 
@@ -58,7 +59,8 @@ class AddUserPage extends StatelessWidget {
                     serviceType: controllerServiceType.text,
                     name: controllerName.text,
                     about: controllerAbout.text,
-                    imagePath: "gs://second-db-fluter.appspot.com/image_for_service_app/profile_image.png",
+                    imagePath: "gs://" +
+                        FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
                   );
                   createUser(user);
 
