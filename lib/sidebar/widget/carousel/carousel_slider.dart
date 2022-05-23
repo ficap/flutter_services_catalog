@@ -15,7 +15,8 @@ class CarouselSliderWidget extends StatelessWidget {
   final Color textColor = Color.fromRGBO(93, 107, 89, 42);
   final Color backgroundColor = Color.fromRGBO(199, 230, 190, 90);
   final Color buttonColor = Color.fromRGBO(77, 82, 76, 32);
-  CarouselSliderWidget({Key? key, required this.uid}) : super(key: key);
+  final bool addingEnabled;
+  CarouselSliderWidget({Key? key, required this.uid, this.addingEnabled = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,42 +69,43 @@ class CarouselSliderWidget extends StatelessWidget {
           }
         ),
 
-        Container(
-        // width: 300,
-        height: 50,
-        decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15.0),
-        color: buttonColor,
-        ),
-        child: MaterialButton(
-              onPressed: () async {
-                print(FirebaseStorage.instance.ref().bucket);
-                final destination = 'files/' + uid + "/picture_gallery";
-                final results = await FilePicker.platform.pickFiles(
-                  allowMultiple: false,
-                  type: FileType.custom,
-                  allowedExtensions: ['png', 'jpg'],
-                );
-                if (results == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('No file selected'),
-                    ),
+        if (addingEnabled)
+          Container(
+          // width: 300,
+          height: 50,
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: buttonColor,
+          ),
+          child: MaterialButton(
+                onPressed: () async {
+                  print(FirebaseStorage.instance.ref().bucket);
+                  final destination = 'files/' + uid + "/picture_gallery";
+                  final results = await FilePicker.platform.pickFiles(
+                    allowMultiple: false,
+                    type: FileType.custom,
+                    allowedExtensions: ['png', 'jpg'],
                   );
-                  return;
-                }
-                final path = results.files.single.path!;
-                final fileName = results.files.single.name;
+                  if (results == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('No file selected'),
+                      ),
+                    );
+                    return;
+                  }
+                  final path = results.files.single.path!;
+                  final fileName = results.files.single.name;
 
-                storage
-                    .uploadFile(path, destination, fileName)
-                    .then((value) => print('Done'));
+                  storage
+                      .uploadFile(path, destination, fileName)
+                      .then((value) => print('Done'));
 
-                Navigator.pop(context);
-              },
-              child: Text('Add new photo'),
-            )
-        )
+                  Navigator.pop(context);
+                },
+                child: Text('Add new photo'),
+              )
+          )
       ],
     );
   }

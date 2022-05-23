@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:services_catalog/sidebar/widget/carousel/carousel_slider.dart';
 import 'package:services_catalog/sidebar/widget/user_widget/profile_widget.dart';
 
 import 'package:services_catalog/entities/provider_model.dart';
@@ -13,54 +14,50 @@ class SpecialistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          ProfileWidget(
+            imagePath: model.imagePath,
+            onClicked: () {},
+            isEdit: false
+          ),
 
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+          const SizedBox(height: 24),
 
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(model.id).get(),
-        builder:
-        (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Text("Something went wrong");
-          }
-
-          if (snapshot.hasData && !snapshot.data!.exists) {
-            return const Text("Document does not exist");
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-            return Scaffold(
-              appBar: buildAppBar(context),
-              body: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  ProfileWidget(
-                      imagePath: data['imagePath'],
-                      onClicked: () {},
-                      isEdit: false)
-                ],
+          Column(
+            children: [
+              Text(
+                model.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
               ),
-            );
-          }
-          return const Text("loading");
-        }
-    );
-  }
+              const SizedBox(height: 4),
 
-  AppBar buildAppBar(BuildContext context) {
-    final icon = CupertinoIcons.moon_stars;
+              Text(
+                model.email,
+                style: const TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(height: 30),
 
-    return AppBar(
-      leading: const BackButton(),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      actions: [
-        IconButton(
-          icon: Icon(icon),
-          onPressed: () {},
-        ),
-      ],
+              Text(
+                model.about,
+                style: const TextStyle(
+                  fontSize: 16,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+
+          CarouselSliderWidget(uid: model.id, addingEnabled: false,),
+          const SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }

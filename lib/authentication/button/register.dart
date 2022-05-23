@@ -1,15 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/fire_base/fire_base.dart';
-
 import 'package:services_catalog/authentication/page/add_user_page.dart';
 
 class RegisterButton extends StatelessWidget {
 
-  final TextEditingController emailField;
-  final TextEditingController passwordField;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   final Color buttonColor;
 
-  const RegisterButton({Key? key, required this.emailField, required this.passwordField, required this.buttonColor}) : super(key: key);
+  const RegisterButton({Key? key, required this.emailController, required this.passwordController, required this.buttonColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +19,10 @@ class RegisterButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
         color: buttonColor,
       ),
-      child: MaterialButton(
+      child: TextButton(
         onPressed: () async {
           bool shouldNavigate =
-          await register(emailField.text, passwordField.text);
+          await register(emailController.text, passwordController.text, context);
           if (shouldNavigate) {
             Navigator.pushReplacement(
               context,
@@ -33,9 +32,30 @@ class RegisterButton extends StatelessWidget {
             );
           }
         },
-        child: const Text("Register", style: const TextStyle(color: Colors.white)),
+        child: const Text("Register", style: TextStyle(color: Colors.white)),
       ),
     );
   }
+  
+  static final fireAuthErrorMapping = {
+    "weak-password": "The password provided is too weak",
+    "email-already-in-use": "The account already exists for that email",
+    "invalid-email": "Invalid email format",
+  };
 
+  Future<bool> register(String email, String password, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      String message = fireAuthErrorMapping[e.code] ?? "Unspecified error occurred";
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+
+      return false;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

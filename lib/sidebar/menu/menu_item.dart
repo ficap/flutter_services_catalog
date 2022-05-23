@@ -7,7 +7,7 @@ class MenuItem extends StatelessWidget {
   final color = const Color.fromRGBO(93, 107, 89, 42);
   final hoverColor = const Color.fromRGBO(93, 107, 89, 42);
 
-  MenuItem({Key? key, required this.text, required this.icon, this.onClicked}) : super(key: key);
+  const MenuItem({Key? key, required this.text, required this.icon, this.onClicked}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
