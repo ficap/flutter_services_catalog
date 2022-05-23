@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/sidebar/page/user_page/specialist_popup.dart';
 
@@ -18,7 +19,7 @@ class ProviderDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.phone),
-        onPressed: () => print("Calling ${model.phone}"),
+        onPressed: () => launchUrl(Uri.parse("tel:${model.phone}")),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,12 +27,6 @@ class ProviderDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text("Name: ${model.name}"),
-            // Text("ServiceType: ${model.serviceType}"),
-            // Text("Address: ${model.address}"),
-            // Text("Position: ${model.geopoint.longitude}, ${model.geopoint.latitude}"),
-            // Text("Email: ${model.email}"),
-            // Text("Phone: ${model.phone}")
             SpecialistPage(model: model),
           ],
         ),

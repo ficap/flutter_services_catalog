@@ -107,79 +107,76 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       }
     );
 
-    return Scaffold(
-      // appBar: AppBar(),
-      body: FlutterMap(
-        mapController: _mapController,
-        options: MapOptions(
-          zoom: 13.0,
-          plugins: [StreamMarkerPlugin()],
-          maxZoom: 18.0,
-          center: LatLng(49.195061, 16.606836),
-          onTap: (_, __) => FocusManager.instance.primaryFocus?.unfocus(),
+    return FlutterMap(
+      mapController: _mapController,
+      options: MapOptions(
+        zoom: 13.0,
+        plugins: [StreamMarkerPlugin()],
+        maxZoom: 18.0,
+        center: LatLng(49.195061, 16.606836),
+        onTap: (_, __) => FocusManager.instance.primaryFocus?.unfocus(),
+      ),
+      layers: [
+        TileLayerOptions(
+          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          subdomains: ['a', 'b', 'c'],
+          attributionBuilder: (_) {
+            return const Text("© OpenStreetMap contributors");
+          },
         ),
-        layers: [
-          TileLayerOptions(
-            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            subdomains: ['a', 'b', 'c'],
-            attributionBuilder: (_) {
-              return const Text("© OpenStreetMap contributors");
-            },
-          ),
-          StreamMarkerLayerOptions<ProviderModel>(
-            stream: di.searchBloc.filteredProvidersStream,
-            markerCreator: <ProviderModel>(document) {
-              return CircularMarker(
-                point: toLatLng(document.geopoint),
-                label: (document.serviceType as String),
-                onTap: () {
-                  var x = _mapController.centerZoomFitBounds(
-                    LatLngBounds.fromPoints([toLatLng(document.geopoint)]),
-                    // options: FitBoundsOptions(
-                    //   maxZoom: _mapController.zoom,
-                    //   padding: const EdgeInsets.only(top: 10),
-                    // ),
-                  );
-                  _animatedMapMove(x.center, x.zoom);
-                  Future.delayed(const Duration(milliseconds: 500)).then(
-                    (value) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return DetailDialog(
-                            provider: document,
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
-        ],
-        nonRotatedChildren: [
-          Container(
-            // padding: const EdgeInsets.all(10),
-            padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
-            child: TextField(
-              onChanged: di.searchBloc.updateFilter,
-              controller: _searchFieldController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    _searchFieldController.clear();
-                    di.searchBloc.updateFilter("");
+        StreamMarkerLayerOptions<ProviderModel>(
+          stream: di.searchBloc.filteredProvidersStream,
+          markerCreator: <ProviderModel>(document) {
+            return CircularMarker(
+              point: toLatLng(document.geopoint),
+              label: (document.serviceType as String),
+              onTap: () {
+                var x = _mapController.centerZoomFitBounds(
+                  LatLngBounds.fromPoints([toLatLng(document.geopoint)]),
+                  // options: FitBoundsOptions(
+                  //   maxZoom: _mapController.zoom,
+                  //   padding: const EdgeInsets.only(top: 10),
+                  // ),
+                );
+                _animatedMapMove(x.center, x.zoom);
+                Future.delayed(const Duration(milliseconds: 500)).then(
+                  (value) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DetailDialog(
+                          provider: document,
+                        );
+                      },
+                    );
                   },
-                  icon: const Icon(Icons.clear),
-                ),
+                );
+              },
+            );
+          },
+        ),
+      ],
+      nonRotatedChildren: [
+        Container(
+          // padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
+          child: TextField(
+            onChanged: di.searchBloc.updateFilter,
+            controller: _searchFieldController,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  _searchFieldController.clear();
+                  di.searchBloc.updateFilter("");
+                },
+                icon: const Icon(Icons.clear),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

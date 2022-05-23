@@ -15,6 +15,7 @@ class AddUserPage extends StatelessWidget {
   final controllerServiceType = TextEditingController();
   final controllerAbout = TextEditingController();
   final controllerAddress = TextEditingController();
+  final controllerPhone = TextEditingController();
   final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
   final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
   final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
@@ -25,6 +26,7 @@ class AddUserPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: const Text('Add User'),
+      automaticallyImplyLeading: false,
       backgroundColor: textColor,
     ),
     body: Container(
@@ -34,14 +36,36 @@ class AddUserPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           AddUserFieldController(controller: controllerName, textColor: textColor, hintText: "Jhon", lableText: "Name"),
-          //
-          const SizedBox(height: 24),
+          const SizedBox(height: 12),
 
           AddUserFieldController(controller: controllerServiceType, textColor: textColor, hintText: "Your service offering", lableText: "Type of service"),
-          //
-          const SizedBox(height: 24),
+          const SizedBox(height: 12),
+
+      Container(
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+        child: TextFormField(
+          style: TextStyle(color: textColor),
+          controller: controllerPhone,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            hintText: "+420 111 222 333",
+            hintStyle: TextStyle(
+              color: textColor,
+            ),
+            labelText: "Phone",
+            labelStyle: TextStyle(
+              color: textColor,
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: textColor),
+            ),
+          ),
+        ),
+      ),
+
+          const SizedBox(height: 12,),
+
           Container(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
             child: TypeAheadField(
@@ -85,10 +109,9 @@ class AddUserPage extends StatelessWidget {
               hideOnLoading: true,
             ),
           ),
-          const SizedBox(height: 24),
-          //
+          const SizedBox(height: 12),
+
           AddUserFieldController(controller: controllerAbout, textColor: textColor, hintText: "Y22 years old, programmer", lableText: "Something about you"),
-          //
           const SizedBox(height: 32),
 
           Container(
@@ -115,6 +138,7 @@ class AddUserPage extends StatelessWidget {
                     serviceType: controllerServiceType.text,
                     name: controllerName.text,
                     about: controllerAbout.text,
+                    phone: controllerPhone.text,
                     imagePath: "gs://" +
                         FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
                     address: controllerAddress.text,
@@ -122,12 +146,8 @@ class AddUserPage extends StatelessWidget {
                   );
                   createUser(user);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Account created successfully")));
+                  Navigator.of(context).popUntil(ModalRoute.withName(Navigator.defaultRouteName));
                 }},
               child: const Text("Create", style: TextStyle(color: Colors.white)),
             ),

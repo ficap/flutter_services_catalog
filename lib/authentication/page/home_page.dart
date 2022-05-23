@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:services_catalog/di.dart';
 import 'package:services_catalog/map_screen.dart';
 import 'package:services_catalog/sidebar/sidebar.dart';
 
@@ -12,19 +10,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
+    return const Scaffold(
       drawer: SideBar(),
-      body:
-      Center(
-          child: Provider<DI>(
-              create: (context) => DI(),
-              dispose: (context, di) => di.dispose(),
-              child: const MapScreen()),
-      ),
+      body: MapScreen(),
     );
-
   }
-
-
 }

@@ -9,23 +9,23 @@ class EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      child: TextFormField(
-        style: TextStyle(color: textColor),
-        controller: emailField,
-        decoration: InputDecoration(
-          hintText: "something@email.com",
-          hintStyle: TextStyle(
-            color: textColor,
-          ),
-          labelText: "Email",
-          labelStyle: TextStyle(
-            color: textColor,
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: textColor),
-          ),
+    return TextFormField(
+      style: TextStyle(color: textColor),
+      controller: emailField,
+      textInputAction: TextInputAction.next,
+      autofocus: true,
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        hintText: "something@email.com",
+        hintStyle: TextStyle(
+          color: textColor,
+        ),
+        labelText: "Email",
+        labelStyle: TextStyle(
+          color: textColor,
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: textColor),
         ),
       ),
     );

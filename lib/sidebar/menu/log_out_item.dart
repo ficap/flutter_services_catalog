@@ -22,10 +22,10 @@ class LogOutItem extends StatelessWidget {
               icon: Icons.logout,
               onClicked: () => {
                 FirebaseAuth.instance.signOut(),
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(
-                    builder: (context) => const HomePage()
-                ))
+                // Navigator.pushReplacement(
+                //     context, MaterialPageRoute(
+                //     builder: (context) => const HomePage()
+                // ))
               }
           )
         ],

@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:services_catalog/authentication/page/add_user_page.dart';
-import 'package:services_catalog/authentication/page/home_page.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/fire_base/storage.dart';
 
@@ -12,25 +11,24 @@ import 'package:services_catalog/sidebar/widget/user_widget/text_field_widget.da
 
 class EditProfilePage extends StatelessWidget {
   String imagePath;
-  final Map<String, dynamic> data;
-  final String uid;
+  final ProviderModel data;
   final Storage storage = Storage();
   final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
   final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
   final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
 
-  EditProfilePage({Key? key, required this.data, required this.imagePath, required this.uid}) : super(key: key);
+  EditProfilePage({Key? key, required this.data, required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var nameController = TextEditingController();
-    nameController.text = data["name"];
+    nameController.text = data.name;
     var serviceTypeController = TextEditingController();
-    serviceTypeController.text = data['serviceType'];
+    serviceTypeController.text = data.serviceType;
     var aboutController = TextEditingController();
-    aboutController.text = data['about'];
+    aboutController.text = data.about;
 
-    String newImagePath = data['imagePath'];
+    String newImagePath = data.imagePath;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profile'),
@@ -46,7 +44,7 @@ class EditProfilePage extends StatelessWidget {
             onClicked: () async {
 
               print(FirebaseStorage.instance.ref().bucket);
-              final destination = 'files/' + uid + "/picture_profile";
+              final destination = 'files/' + data.id + "/picture_profile";
               final results = await FilePicker.platform.pickFiles(
                 allowMultiple: false,
                 type: FileType.custom,
@@ -71,27 +69,27 @@ class EditProfilePage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => EditProfilePage(data: data, imagePath: newImagePath, uid: uid,)));
+                  builder: (context) => EditProfilePage(data: data, imagePath: newImagePath)));
               },
                 ),
           const SizedBox(height: 24),
           TextFieldWidget(
             label: 'Name',
-            text: data['name'],
+            text: data.name,
             onChanged: (newName) {nameController.text = newName;},
           ),
 
           const SizedBox(height: 24),
           TextFieldWidget(
             label: 'Type of service',
-            text: data['serviceType'],
+            text: data.serviceType,
             onChanged: (speciality) {serviceTypeController.text = speciality;},
           ),
 
           const SizedBox(height: 24),
           TextFieldWidget(
             label: 'About',
-            text: data['about'],
+            text: data.about,
             maxLines: 10,
             onChanged: (about) {aboutController.text = about;},
           ),
@@ -116,12 +114,7 @@ class EditProfilePage extends StatelessWidget {
                       );
                       AddUserPage.createUser(user);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
-                      );
+                      Navigator.of(context).pop();
                     }},
                   child: const Text("Save"))
           ),
@@ -130,5 +123,4 @@ class EditProfilePage extends StatelessWidget {
       ),
     );
   }
-
 }

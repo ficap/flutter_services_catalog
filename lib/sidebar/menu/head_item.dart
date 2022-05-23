@@ -8,10 +8,9 @@ class HeadItem extends StatelessWidget {
   final VoidCallback onClicked;
   final EdgeInsets padding;
 
+  const HeadItem({Key? key, required this.urlImage, required this.name, required this.email, required this.onClicked, required this.padding}) : super(key: key);
 
-
-  const HeadItem({Key? key, required this.urlImage, required this.name, required this.email, required this.onClicked, required this.padding}) : super(key: key);@override
-
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onClicked,
