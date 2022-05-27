@@ -2,7 +2,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentication/page/add_user_page.dart';
+import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/fire_base/storage.dart';
 

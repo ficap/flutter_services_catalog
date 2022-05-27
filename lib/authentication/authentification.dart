@@ -1,16 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentication/field/email_field.dart';
-import 'package:services_catalog/authentication/field/password_field.dart';
-import 'package:services_catalog/authentication/page/add_user_page.dart';
+import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/fire_base/fire_base.dart';
+
+import 'package:services_catalog/text_field.dart';
 
 
 class AuthenticationScreen extends StatefulWidget {
-  static String id = "authentication";
-  final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
-  final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
-  final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
+  static const String id = "authentication";
 
   const AuthenticationScreen({Key? key}) : super(key: key);
 
@@ -49,15 +46,18 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
         child: Column(
           children: [
-            EmailField(
-              emailField: _emailController, 
-              textColor: widget.textColor,
+            MyTextField(
+              controller: _emailController,
+              hintText: "something@email.com",
+              labelText: "Email",
             ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 35),
 
-            PasswordField(
-              passwordField: _passwordController, 
-              textColor: widget.textColor,
+            MyTextField(
+              controller: _passwordController,
+              hintText: "password",
+              labelText: "Password",
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
 
@@ -86,10 +86,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   };
 
   void trySignIn() async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
     loading = true;
-    var success = await signIn(email, password);
+    final success = await signIn(email, password);
     loading = false;
     if(!success) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Invalid login")));
@@ -99,8 +99,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   }
 
   void tryRegister() async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
 
     loading = true;
     try {
