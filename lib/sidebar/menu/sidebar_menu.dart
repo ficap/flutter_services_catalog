@@ -1,7 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentication/login_widget.dart';
-import 'package:services_catalog/authentication/page/authentification.dart';
+import 'package:services_catalog/authentication/authentification.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/sidebar/menu/head_item.dart';
 import 'package:services_catalog/sidebar/menu/log_out_item.dart';

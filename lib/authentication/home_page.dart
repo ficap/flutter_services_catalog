@@ -4,7 +4,7 @@ import 'package:services_catalog/sidebar/sidebar.dart';
 
 
 class HomePage extends StatelessWidget {
-  static String id = "home";
+  static const String id = "home";
 
   const HomePage({Key? key}) : super(key: key);
 

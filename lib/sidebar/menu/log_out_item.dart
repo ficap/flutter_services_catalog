@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:services_catalog/authentication/page/home_page.dart';
+import 'package:services_catalog/authentication/home_page.dart';
 import 'package:services_catalog/sidebar/menu/menu_item.dart';
 
 class LogOutItem extends StatelessWidget {
