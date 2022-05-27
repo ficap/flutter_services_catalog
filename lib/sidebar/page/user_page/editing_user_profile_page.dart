@@ -5,34 +5,34 @@ import 'package:flutter/material.dart';
 import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/fire_base/storage.dart';
+import 'package:services_catalog/my_color.dart';
 
 import 'package:services_catalog/sidebar/widget/user_widget/profile_widget.dart';
 import 'package:services_catalog/sidebar/widget/user_widget/text_field_widget.dart';
+import 'package:services_catalog/text_field.dart';
 
 class EditProfilePage extends StatelessWidget {
-  String imagePath;
+  final String imagePath;
   final ProviderModel data;
   final Storage storage = Storage();
-  final Color buttonColor = const Color.fromRGBO(77, 82, 76, 32);
-  final Color textColor = const Color.fromRGBO(93, 107, 89, 42);
-  final Color backgroundColor = const Color.fromRGBO(199, 230, 190, 90);
+
 
   EditProfilePage({Key? key, required this.data, required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var nameController = TextEditingController();
+    final nameController = TextEditingController();
     nameController.text = data.name;
-    var serviceTypeController = TextEditingController();
+    final serviceTypeController = TextEditingController();
     serviceTypeController.text = data.serviceType;
-    var aboutController = TextEditingController();
+    final aboutController = TextEditingController();
     aboutController.text = data.about;
 
     String newImagePath = data.imagePath;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profile'),
-        backgroundColor: textColor,
+        backgroundColor: MyColor.textColor,
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -73,26 +73,16 @@ class EditProfilePage extends StatelessWidget {
               },
                 ),
           const SizedBox(height: 24),
-          TextFieldWidget(
-            label: 'Name',
-            text: data.name,
-            onChanged: (newName) {nameController.text = newName;},
-          ),
+
+          MyTextField(controller: nameController, hintText: nameController.text, labelText: "Name"),
 
           const SizedBox(height: 24),
-          TextFieldWidget(
-            label: 'Type of service',
-            text: data.serviceType,
-            onChanged: (speciality) {serviceTypeController.text = speciality;},
-          ),
+
+          MyTextField(controller: serviceTypeController, hintText: serviceTypeController.text, labelText: "Type of service"),
 
           const SizedBox(height: 24),
-          TextFieldWidget(
-            label: 'About',
-            text: data.about,
-            maxLines: 10,
-            onChanged: (about) {aboutController.text = about;},
-          ),
+
+          MyTextField(controller: aboutController, hintText: aboutController.text, labelText: "About"),
 
           const SizedBox(height: 24),
 
@@ -101,7 +91,7 @@ class EditProfilePage extends StatelessWidget {
               height: 45,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: buttonColor,
+                color: MyColor.textColor,
               ),
               child: MaterialButton(
                   onPressed: () {
