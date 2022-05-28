@@ -27,15 +27,21 @@ class SearchBloc {
         .startWith("");
 
     final filteredProvidersStream = Rx.combineLatest2(
-        snapshots, textStream, (Iterable<ProviderModel> snapshot, String text) {
-      if (text.isEmpty) return snapshot;
+      snapshots,
+      textStream,
+      (Iterable<ProviderModel> snapshot, String text) {
+        if (text.isEmpty) return snapshot;
+        text = text.toLowerCase();
 
-      return snapshot.where((element) =>
-      element.serviceType.toLowerCase()
-          .startsWith(text.toLowerCase()) ||
-          element.name.toLowerCase().contains(text.toLowerCase()));
-    });
-
+        return snapshot.where(
+          (element) {
+            return element.serviceType.toLowerCase().startsWith(text) ||
+              element.name.toLowerCase().contains(text) ||
+              element.about.toLowerCase().contains(text);
+          },
+        );
+      },
+    );
 
     return SearchBloc._(onTextChanged, filteredProvidersStream);
   }
