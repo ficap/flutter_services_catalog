@@ -15,7 +15,6 @@ class SideBar extends StatelessWidget {
     return StreamBuilder<ProviderModel?>(
       stream: Provider.of<DI>(context, listen: false).currentUserStream,
       builder: (context, snapshot) {
-        print("rebuild");
         return SideBarMenu(padding: padding, providerModel: snapshot.data);
       },
     );

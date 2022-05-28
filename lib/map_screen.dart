@@ -166,6 +166,10 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
+              prefixIcon: IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: const Icon(Icons.menu),
+              ),
               suffixIcon: IconButton(
                 onPressed: () {
                   _searchFieldController.clear();
