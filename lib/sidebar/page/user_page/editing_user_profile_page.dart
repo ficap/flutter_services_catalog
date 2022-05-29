@@ -69,9 +69,9 @@ class EditProfilePage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => EditProfilePage(data: data, imagePath: newImagePath)));
-              },
-                ),
+                      builder: (context) => EditProfilePage(data: data, imagePath: newImagePath)));
+            },
+          ),
           const SizedBox(height: 24),
 
           MyTextField(controller: nameController, hintText: nameController.text, labelText: "Name"),

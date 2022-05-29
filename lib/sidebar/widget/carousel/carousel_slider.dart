@@ -71,13 +71,12 @@ class CarouselSliderWidget extends StatelessWidget {
 
         if (addingEnabled)
           Container(
-          // width: 300,
-          height: 50,
-          decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
-          color: buttonColor,
-          ),
-          child: MaterialButton(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: buttonColor,
+              ),
+              child: MaterialButton(
                 onPressed: () async {
                   print(FirebaseStorage.instance.ref().bucket);
                   final destination = 'files/' + uid + "/picture_gallery";
@@ -101,7 +100,7 @@ class CarouselSliderWidget extends StatelessWidget {
                       .uploadFile(path, destination, fileName)
                       .then((value) => print('Done'));
 
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 },
                 child: Text('Add new photo'),
               )

@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:services_catalog/authentication/authentification.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
-import 'package:services_catalog/my_color.dart';
-import 'package:services_catalog/sidebar/menu/head_item.dart';
 import 'package:services_catalog/sidebar/menu/log_out_item.dart';
 import 'package:services_catalog/sidebar/page/user_page/editing_user_profile_page.dart';
 import 'package:services_catalog/sidebar/page/user_page/user_profil_page.dart';
@@ -32,7 +30,7 @@ class SideBarMenu extends StatelessWidget {
               stream: Provider.of<DI>(context).currentUserStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData || snapshot.data == null) {
-                  return Container();
+                  return AuthenticationScreen();
                 }
                 final providerModel = snapshot.data!;
 
@@ -58,13 +56,11 @@ class SideBarMenu extends StatelessWidget {
                           ),
                         ),
 
-
-
                         InkWell(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => UserProfilePage(
-                                providerModel: providerModel,
+                                // providerModel: providerModel,
                               ),
                             ),
                           ),
