@@ -9,6 +9,8 @@ import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/my_color.dart';
 import 'package:services_catalog/text_field.dart';
 
+import 'home_page.dart';
+
 
 class AddUserPage extends StatelessWidget {
   final controllerName = TextEditingController();
@@ -121,7 +123,8 @@ class AddUserPage extends StatelessWidget {
                       imagePath: "gs://" +
                           FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
                       address: controllerAddress.text,
-                      geopoint: GeoPoint(place.first.lat, place.first.lon)
+                      geopoint: GeoPoint(place.first.lat, place.first.lon),
+                      pictureUrls: "empty"
                     );
                     createUser(user);
 
