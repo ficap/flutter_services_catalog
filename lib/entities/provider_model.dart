@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -30,11 +32,13 @@ class ProviderModel {
   GeoPoint geopoint;
   @JsonKey(name: 'imagePath', defaultValue: "")
   String imagePath;
+  @JsonKey(name: 'pictureUrls', defaultValue: "")
+  String pictureUrls;
 
 
-  ProviderModel.id(this.name, this.address, this.serviceType, this.geopoint, this.phone, this.email, this.imagePath, this.about) : id = const Uuid().v1();
+  ProviderModel.id(this.name, this.address, this.serviceType, this.geopoint, this.phone, this.email, this.imagePath, this.about, this.pictureUrls) : id = const Uuid().v1();
 
-  ProviderModel({this.id = "", this.name = "", this.address = "", this.serviceType = "", this.about = "", this.geopoint = const GeoPoint(0, 0), this.phone = "", this.email = "", this.imagePath = ""});
+  ProviderModel({this.id = "", this.name = "", this.address = "", this.serviceType = "", this.about = "", this.geopoint = const GeoPoint(0, 0), this.phone = "", this.email = "", this.imagePath = "", this.pictureUrls = ""});
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) => _$ProviderModelFromJson(json);
   Map<String, dynamic> toJson() => _$ProviderModelToJson(this);

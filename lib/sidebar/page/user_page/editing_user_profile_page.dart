@@ -101,6 +101,7 @@ class EditProfilePage extends StatelessWidget {
                         name: nameController.text,
                         about: aboutController.text,
                         imagePath: imagePath,
+                        pictureUrls: data.pictureUrls
                       );
                       AddUserPage.createUser(user);
 
