@@ -8,6 +8,7 @@ import 'package:services_catalog/entities/provider_model.dart';
 class SearchBloc {
   final Sink<String> _onFilterTextChanged;
   final Stream<Iterable<ProviderModel>> filteredProvidersStream;
+  final filteredBS;
 
   void updateFilter(String term) => _onFilterTextChanged.add(term);
 
@@ -43,10 +44,14 @@ class SearchBloc {
       },
     );
 
-    return SearchBloc._(onTextChanged, filteredProvidersStream);
+    final filteredProvidersBS = BehaviorSubject<Iterable<ProviderModel>>();
+    filteredProvidersBS.addStream(filteredProvidersStream);
+
+
+    return SearchBloc._(onTextChanged, filteredProvidersStream, filteredProvidersBS);
   }
 
-  SearchBloc._(this._onFilterTextChanged, this.filteredProvidersStream);
+  SearchBloc._(this._onFilterTextChanged, this.filteredProvidersStream, this.filteredBS);
 
   void dispose() {
     _onFilterTextChanged.close();
