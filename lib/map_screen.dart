@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:services_catalog/detail_dialog.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
+import 'package:services_catalog/list_screen.dart';
 import 'package:services_catalog/stream_marker_plugin.dart';
 import 'package:services_catalog/utils/geo_converters.dart';
 import 'package:services_catalog/widgets/circular_marker.dart';
@@ -125,7 +127,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           },
         ),
         StreamMarkerLayerOptions<ProviderModel>(
-          stream: di.searchBloc.filteredProvidersStream,
+          stream: di.searchBloc.filteredBS,
           markerCreator: <ProviderModel>(document) {
             return CircularMarker(
               point: toLatLng(document.geopoint),
@@ -159,21 +161,44 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       nonRotatedChildren: [
         Container(
           // padding: const EdgeInsets.all(10),
-          padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
-          child: TextField(
-            onChanged: di.searchBloc.updateFilter,
-            controller: _searchFieldController,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              suffixIcon: IconButton(
-                onPressed: () {
-                  _searchFieldController.clear();
-                  di.searchBloc.updateFilter("");
-                },
-                icon: const Icon(Icons.clear),
+          padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
+          child: TypeAheadField(
+            textFieldConfiguration: TextFieldConfiguration(
+              controller: _searchFieldController,
+              onChanged: di.searchBloc.updateFilter,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _searchFieldController.clear();
+                    di.searchBloc.updateFilter("");
+                  },
+                  icon: const Icon(Icons.clear),
+                ),
               ),
             ),
+            suggestionsCallback: (text) {
+              if(text.isNotEmpty) {
+                return ["..."];
+              }
+              return [];
+            },
+            animationDuration: const Duration(),
+            suggestionsBoxVerticalOffset: 0,
+            itemBuilder: (context, suggestion) {
+              return const Center(child: Icon(Icons.arrow_forward));
+            },
+            onSuggestionSelected: (suggestion) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ListScreen();
+                  },
+                ),
+              );
+            },
+            hideOnEmpty: true,
           ),
         ),
       ],
