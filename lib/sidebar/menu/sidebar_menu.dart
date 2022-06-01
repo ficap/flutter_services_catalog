@@ -8,6 +8,7 @@ import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/sidebar/menu/log_out_item.dart';
 import 'package:services_catalog/sidebar/page/user_page/editing_user_profile_page.dart';
 import 'package:services_catalog/sidebar/page/user_page/user_profil_page.dart';
+import 'package:services_catalog/sign_in.dart';
 
 
 class SideBarMenu extends StatelessWidget {
@@ -30,7 +31,7 @@ class SideBarMenu extends StatelessWidget {
               stream: Provider.of<DI>(context).currentUserStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData || snapshot.data == null) {
-                  return AuthenticationScreen();
+                  return SignIn(padding: padding);
                 }
                 final providerModel = snapshot.data!;
 
