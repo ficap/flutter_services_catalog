@@ -1,8 +1,6 @@
 import 'package:firebase_image/firebase_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:services_catalog/authentication/authentification.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/sidebar/menu/log_out_item.dart';
@@ -22,7 +20,6 @@ class SideBarMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     print("rebuild sidebar");
 
-    final String urlName = providerModel?.imagePath ?? "gs://" + FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png";
 
     return Drawer(
 
@@ -44,12 +41,11 @@ class SideBarMenu extends StatelessWidget {
                           child: InkWell(
                             child: CircleAvatar(
                               radius: 30,
-                              backgroundImage: FirebaseImage(urlName),
+                              backgroundImage: FirebaseImage(providerModel.imagePath),
                             ),
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => EditProfilePage(
-                                  data: providerModel,
                                   imagePath: providerModel.imagePath,
                                 ),
                               ),
@@ -61,7 +57,6 @@ class SideBarMenu extends StatelessWidget {
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => UserProfilePage(
-                                // providerModel: providerModel,
                               ),
                             ),
                           ),

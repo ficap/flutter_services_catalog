@@ -17,7 +17,6 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: userBackgroundColor,
       appBar: AppBar(
         title: const Text('Profile'),
         backgroundColor: MyColor.textColor,
@@ -40,7 +39,6 @@ class UserProfilePage extends StatelessWidget {
                   onClicked: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => EditProfilePage(
-                        data: providerModel,
                         imagePath: providerModel.imagePath,
                       ),
                     ),

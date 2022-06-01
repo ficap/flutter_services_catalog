@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:services_catalog/sidebar/widget/carousel/carousel_slider.dart';
 import 'package:services_catalog/sidebar/widget/user_widget/profile_widget.dart';

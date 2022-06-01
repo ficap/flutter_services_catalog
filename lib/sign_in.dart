@@ -1,7 +1,7 @@
+import 'package:firebase_image/firebase_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:services_catalog/authentication/authentification.dart';
-import 'package:services_catalog/head_item.dart';
 
 
 class SignIn extends StatelessWidget {
@@ -16,15 +16,28 @@ class SignIn extends StatelessWidget {
         color: const Color.fromRGBO(199, 230, 190, 90),
         child: ListView(
           children: <Widget>[
-            HeadItem(
-              padding: padding,
-              urlImage: "gs://" + FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png",
-              name: "Sign in",
-              email: "",
-              onClicked: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const AuthenticationScreen()
-              )),
-            )
+            InkWell(
+              onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const AuthenticationScreen())),
+              child: Container(
+                padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
+                child: Row(
+                  children: [
+                    CircleAvatar(radius: 30, backgroundImage: FirebaseImage("gs://" + FirebaseStorage.instance.ref().bucket + "/image_for_service_app/profile_image.png")),
+                    const SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Sign in",
+                          style: TextStyle(fontSize: 20, color: Color.fromRGBO(93, 107, 89, 42)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
 
