@@ -129,11 +129,7 @@ class AddUserPage extends StatelessWidget {
                     createUser(user);
 
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Account created successfully")));
-                    // Navigator.of(context).popUntil(ModalRoute.withName(Navigator.defaultRouteName));
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage(),),);
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
+                    Navigator.of(context).popUntil(ModalRoute.withName(Navigator.defaultRouteName));
                   }},
                 child: const Text("Create", style: TextStyle(color: Colors.white)),
               ),

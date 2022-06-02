@@ -18,76 +18,81 @@ class SideBarMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild sidebar");
-
-
     return Drawer(
+      child: StreamBuilder<ProviderModel?>(
+        stream: Provider.of<DI>(context).currentUserStream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.data == null) {
+            return SignIn(padding: padding);
+          }
+          final providerModel = snapshot.data!;
 
-      child: Scaffold(
-          body: StreamBuilder<ProviderModel?>(
-              stream: Provider.of<DI>(context).currentUserStream,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return SignIn(padding: padding);
-                }
-                final providerModel = snapshot.data!;
-
-                return ListView(
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Container(
-                          padding: padding,
-                          child: InkWell(
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage: FirebaseImage(providerModel.imagePath),
-                            ),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditProfilePage(
-                                  imagePath: providerModel.imagePath,
-                                ),
-                              ),
+          return Container(
+            padding: const EdgeInsets.only(top: 40),
+            child: ListView(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Container(
+                      padding: padding,
+                      child: InkWell(
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundImage: FirebaseImage(providerModel.imagePath),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => EditProfilePage(
+                              imagePath: providerModel.imagePath,
                             ),
                           ),
                         ),
-
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => UserProfilePage(
-                              ),
-                            ),
-                          ),
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      providerModel?.name ?? "Sign In",
-                                      style: const TextStyle(fontSize: 20, color: Color.fromRGBO(93, 107, 89, 42)),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      providerModel?.email ?? "",
-                                      style: const TextStyle(fontSize: 14, color: Color.fromRGBO(93, 107, 89, 42)),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                    if(providerModel != null)
-                      LogOutItem(padding: padding)
+                    InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const UserProfilePage(),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                providerModel.name,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(93, 107, 89, 42),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                providerModel.email,
+                                overflow: TextOverflow.ellipsis,
+                                textWidthBasis: TextWidthBasis.parent,
+                                style: const TextStyle(fontSize: 14,
+                                  color: Color.fromRGBO(93, 107, 89, 42),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Color.fromRGBO(93, 107, 89, 42),
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                );
-              })
+                ),
+                LogOutItem(padding: padding),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

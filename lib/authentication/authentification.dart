@@ -95,10 +95,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Invalid login")));
       return;
     }
-    // Navigator.of(context).pop();
-    // Navigator.of(context).pushReplacement(
-    //   MaterialPageRoute(builder: (context) => const HomePage()),
-    // );
+    Navigator.of(context).pop();
   }
 
   void tryRegister() async {
