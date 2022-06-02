@@ -31,105 +31,93 @@ class CarouselSliderWidget extends StatelessWidget {
               return Container();
             }
             final providerModel = snapshot.data!;
-            // return Container();
 
-            if(providerModel.pictureUrls != "empty") {
-
-              final urlList = providerModel.pictureUrls.split(";");
-              print("AAAAAAAAAAAAAAAAAAAA");
-              print(urlList);
-
-              return Container(
-                child: Column(
-                  children: [
-                    CarouselSlider.builder(
-                      options: CarouselOptions(
-                        height: 400,
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.8,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        // onPageChanged: ,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      itemCount: urlList.length,
-                      itemBuilder: (context, int itemIndex, int pageViewIndex) {
-                        return Image(
-                          image: FirebaseImage(urlList[itemIndex]),
-                        );
-                      },
-                    ),
-                    addButton(providerModel: providerModel),
-                  ],
-                ),
-
-              );
+            if(providerModel.pictureUrls == "empty") {
+              return addButton(context: context, providerModel: providerModel);
             }
 
-            return addButton(providerModel: providerModel);
-          })
+            final urlList = providerModel.pictureUrls.split(";");
+            return Column(
+              children: [
+                CarouselSlider.builder(
+                  options: CarouselOptions(
+                    height: 400,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                  itemCount: urlList.length,
+                  itemBuilder: (context, int itemIndex, int pageViewIndex) {
+                    return Image(
+                      image: FirebaseImage(urlList[itemIndex]),
+                    );
+                  },
+                ),
+                addButton(context: context, providerModel: providerModel),
+              ],
+            );
+          },
+        ),
       ],
     );
   }
 
   Widget addButton({
+    required BuildContext context,
     required ProviderModel providerModel,
   }) =>
       Container(
-          height: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: MyColor.buttonColor,
-          ),
-          child: MaterialButton(
-            onPressed: () async {
-              print(FirebaseStorage.instance.ref().bucket);
-              final destination = 'files/' + uid + "/picture_gallery";
-              final results = await FilePicker.platform.pickFiles(
-                allowMultiple: false,
-                type: FileType.custom,
-                allowedExtensions: ['png', 'jpg'],
-              );
-              if (results == null) {
-                // ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('No file selected'),
-                  // ),
-                );
-                return;
-              }
-              final path = results.files.single.path!;
-              final fileName = results.files.single.name;
-              if (providerModel.pictureUrls == "empty") {
-                providerModel.pictureUrls = "gs://second-db-fluter.appspot.com/" + destination + "/" + fileName;
-              }
-              else if (!providerModel.pictureUrls.contains("gs://second-db-fluter.appspot.com/" + destination + "/" + fileName)){
-                providerModel.pictureUrls +=
-                    ";" + "gs://second-db-fluter.appspot.com/" + destination + "/" + fileName;
-              }
-              print(providerModel.pictureUrls);
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: MyColor.buttonColor,
+        ),
+        child: MaterialButton(
+          child: const Text('Add new photo'),
+          onPressed: () async {
+            final destination = 'files/' + uid + "/picture_gallery";
 
-              final user = ProviderModel(
-                  serviceType: providerModel.serviceType,
-                  name: providerModel.name,
-                  about: providerModel.about,
-                  imagePath: providerModel.imagePath,
-                  pictureUrls: providerModel.pictureUrls
-              );
-              AddUserPage.createUser(user);
+            final results = await FilePicker.platform.pickFiles(
+              allowMultiple: false,
+              type: FileType.custom,
+              allowedExtensions: ['png', 'jpg'],
+            );
 
-              storage
-                  .uploadFile(path, destination, fileName)
-                  .then((value) => print('Done'));
-              // Navigator.pop(context);
-            },
-            child: Text('Add new photo'),
-          )
+            if (results == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('No file selected'),
+                ),
+              );
+              return;
+            }
+
+            final path = results.files.single.path!;
+            final fileName = results.files.single.name;
+            final url = "gs://${FirebaseStorage.instance.ref().bucket}/$destination/$fileName";
+
+            if (providerModel.pictureUrls.contains(url)) {
+              return;
+            }
+
+            await storage.uploadFile(path, destination, fileName);
+
+            if (providerModel.pictureUrls == "empty") {
+              providerModel.pictureUrls = url;
+            } else {
+              providerModel.pictureUrls += ";" + url;
+            }
+
+            await AddUserPage.createUser(providerModel);
+          },
+        ),
       );
 }
