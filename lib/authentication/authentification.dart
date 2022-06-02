@@ -50,6 +50,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               controller: _emailController,
               hintText: "something@email.com",
               labelText: "Email",
+              keyboardType: TextInputType.emailAddress,
             ),
 
             SizedBox(height: MediaQuery.of(context).size.height / 35),
@@ -58,6 +59,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               controller: _passwordController,
               hintText: "password",
               labelText: "Password",
+              obscureText: true,
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
 

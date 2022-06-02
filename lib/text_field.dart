@@ -5,8 +5,10 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
+  final TextInputType? keyboardType;
+  final bool obscureText;
 
-  const MyTextField({Key? key, required this.controller, required this.hintText, required this.labelText}) : super(key: key);
+  const MyTextField({Key? key, required this.controller, required this.hintText, required this.labelText, this.keyboardType, this.obscureText = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,8 @@ class MyTextField extends StatelessWidget {
       style: const TextStyle(color: MyColor.textColor),
       controller: controller,
       textInputAction: TextInputAction.next,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
       autofocus: true,
       decoration: InputDecoration(
         hintText: hintText,

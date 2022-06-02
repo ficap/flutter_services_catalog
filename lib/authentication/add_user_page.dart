@@ -34,15 +34,15 @@ class AddUserPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            MyTextField(controller: controllerName, hintText: "Jhon", labelText: "Name"),
+            MyTextField(controller: controllerName, hintText: "John Smith", labelText: "Name"),
 
             const SizedBox(height: 12),
 
-            MyTextField(controller: controllerServiceType, hintText: "Your service offering", labelText: "Type of service"),
+            MyTextField(controller: controllerServiceType, hintText: "plumber", labelText: "Type of service"),
 
             const SizedBox(height: 12),
 
-            MyTextField(controller: controllerPhone, hintText: "+420 111 222 333", labelText: "Phone"),
+            MyTextField(controller: controllerPhone, hintText: "+420 111 222 333", labelText: "Phone", keyboardType: TextInputType.phone,),
 
             const SizedBox(height: 12,),
 
