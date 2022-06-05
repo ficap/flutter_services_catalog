@@ -19,7 +19,7 @@ class ListScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder<Iterable<ProviderModel>>(
-          stream: di.searchBloc.filteredBS,
+          stream: di.searchBloc.filteredProvidersStream,
           builder: (context, snapshot) {
             return ListView(
               children: snapshot.data?.map((provider) {

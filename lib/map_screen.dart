@@ -127,7 +127,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           },
         ),
         StreamMarkerLayerOptions<ProviderModel>(
-          stream: di.searchBloc.filteredBS,
+          stream: di.searchBloc.filteredProvidersStream,
           markerCreator: <ProviderModel>(document) {
             return CircularMarker(
               point: toLatLng(document.geopoint),
@@ -191,7 +191,13 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             animationDuration: const Duration(),
             suggestionsBoxVerticalOffset: 0,
             itemBuilder: (context, suggestion) {
-              return const Center(child: Icon(Icons.arrow_forward));
+              return Center(child: Row(
+                mainAxisAlignment: MainAxisAlignment.center ,
+                children: [
+                  Text("${di.searchBloc.numOfResults} results found "),
+                  const Icon(Icons.arrow_forward),
+                ],
+              ));
             },
             onSuggestionSelected: (suggestion) {
               Navigator.of(context).push(
