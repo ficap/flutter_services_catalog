@@ -4,7 +4,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/login_bloc.dart';
 import 'package:services_catalog/search_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+
+@singleton
 class DI {
   final SearchBloc searchBloc;
   final Stream<ProviderModel?> currentUserStream;
@@ -28,6 +31,7 @@ class DI {
 
   DI._(this.searchBloc, this.currentUserStream, this.providerModelCollection);
 
+  @disposeMethod
   void dispose() {
     searchBloc.dispose();
   }

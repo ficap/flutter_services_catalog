@@ -1,10 +1,10 @@
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/sidebar/menu/log_out_item.dart';
-import 'package:services_catalog/sidebar/page/user_page/editing_user_profile_page.dart';
 import 'package:services_catalog/sidebar/page/user_page/user_profil_page.dart';
 import 'package:services_catalog/sign_in.dart';
 
@@ -20,7 +20,7 @@ class SideBarMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: StreamBuilder<ProviderModel?>(
-        stream: Provider.of<DI>(context).currentUserStream,
+        stream: GetIt.I.get<DI>().currentUserStream,
         builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data == null) {
             return SignIn(padding: padding);
@@ -42,9 +42,7 @@ class SideBarMenu extends StatelessWidget {
                         ),
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => EditProfilePage(
-                              imagePath: providerModel.imagePath,
-                            ),
+                            builder: (context) => AddUserPage(providerModel: providerModel,)
                           ),
                         ),
                       ),

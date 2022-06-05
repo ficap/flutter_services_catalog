@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:osm_nominatim/osm_nominatim.dart';
-import 'package:provider/provider.dart';
 import 'package:services_catalog/di.dart';
 
 import 'package:services_catalog/entities/provider_model.dart';
@@ -14,8 +14,6 @@ import 'package:services_catalog/fire_base/storage.dart';
 import 'package:services_catalog/my_color.dart';
 import 'package:services_catalog/sidebar/widget/user_widget/profile_widget.dart';
 import 'package:services_catalog/text_field.dart';
-
-import 'home_page.dart';
 
 
 class AddUserPage extends StatefulWidget {
@@ -75,7 +73,7 @@ class _AddUserPageState extends State<AddUserPage> {
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final idUser = auth.currentUser!.uid;
-    final di = Provider.of<DI>(context, listen: false);
+    final di = GetIt.I.get<DI>();
 
     return Scaffold(
       appBar: AppBar(

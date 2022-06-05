@@ -1,11 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
@@ -25,7 +23,7 @@ class CarouselSliderWidget extends StatelessWidget {
     return Column(
       children: [
         StreamBuilder<ProviderModel?>(
-          stream: Provider.of<DI>(context).currentUserStream,
+          stream: GetIt.I.get<DI>().currentUserStream,
           builder: (context, snapshot) {
             if (!snapshot.hasData || snapshot.data == null) {
               return Container();

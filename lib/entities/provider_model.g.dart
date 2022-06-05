@@ -19,7 +19,7 @@ ProviderModel _$ProviderModelFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String? ?? '',
       email: json['email'] as String? ?? '',
       imagePath: json['imagePath'] as String? ?? '',
-      pictureUrls: json['pictureUrls'] as String? ?? ''
+      pictureUrls: json['pictureUrls'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
@@ -31,7 +31,6 @@ Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
     'about': instance.about,
     'phone': instance.phone,
     'email': instance.email,
-    'pictureUrls': instance.pictureUrls
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -42,5 +41,6 @@ Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) {
 
   writeNotNull('geopoint', identity(instance.geopoint));
   val['imagePath'] = instance.imagePath;
+  val['pictureUrls'] = instance.pictureUrls;
   return val;
 }

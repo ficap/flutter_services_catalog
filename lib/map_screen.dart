@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
 import 'package:services_catalog/detail_dialog.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
@@ -31,7 +31,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     // _mapController must be created in initState
     _mapController = MapController();
 
-    final di = Provider.of<DI>(context, listen: false);
+    final di = GetIt.I.get<DI>();
     di.mapController = _mapController;
 
   }
@@ -40,7 +40,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   void dispose() {
     super.dispose();
 
-    final di = Provider.of<DI>(context, listen: false);
+    final di = GetIt.I.get<DI>();
     di.mapController = null;
   }
 
@@ -95,7 +95,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final di = Provider.of<DI>(context, listen: false);
+    final di = GetIt.I.get<DI>();
 
     di.providerModelCollection.limit(10).get().then(
       (snapshot) {

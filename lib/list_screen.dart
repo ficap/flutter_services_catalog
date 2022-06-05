@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/provider_detail_screen.dart';
@@ -10,7 +10,7 @@ class ListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final di = Provider.of<DI>(context);
+    final di = GetIt.I.get<DI>();
 
     return Scaffold(
       appBar: AppBar(
