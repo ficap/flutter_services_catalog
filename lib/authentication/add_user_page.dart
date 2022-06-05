@@ -4,7 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:osm_nominatim/osm_nominatim.dart';
+import 'package:provider/provider.dart';
+import 'package:services_catalog/di.dart';
 
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/fire_base/storage.dart';
@@ -72,6 +75,7 @@ class _AddUserPageState extends State<AddUserPage> {
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final idUser = auth.currentUser!.uid;
+    final di = Provider.of<DI>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -215,7 +219,7 @@ class _AddUserPageState extends State<AddUserPage> {
                             ModalRoute.withName(Navigator.defaultRouteName));
                         return;
                       }
-
+                      di.mapController?.moveAndRotate(LatLng(place.first.lat, place.first.lon), 10, 0);
                       Navigator.of(context).pop();
                     }},
                   child: const Text("Save", style: TextStyle(color: Colors.white)),

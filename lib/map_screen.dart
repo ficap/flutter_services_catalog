@@ -30,11 +30,18 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     super.initState();
     // _mapController must be created in initState
     _mapController = MapController();
+
+    final di = Provider.of<DI>(context, listen: false);
+    di.mapController = _mapController;
+
   }
 
   @override
   void dispose() {
     super.dispose();
+
+    final di = Provider.of<DI>(context, listen: false);
+    di.mapController = null;
   }
 
   void _animatedMapMove(LatLng destLocation, double destZoom) {

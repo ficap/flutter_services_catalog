@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/login_bloc.dart';
@@ -8,6 +9,7 @@ class DI {
   final SearchBloc searchBloc;
   final Stream<ProviderModel?> currentUserStream;
   final CollectionReference<ProviderModel> providerModelCollection;
+  MapController? mapController;
 
   factory DI() {
     final _providersCollection = FirebaseFirestore.instance
