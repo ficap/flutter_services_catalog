@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:services_catalog/authentication/add_user_page.dart';
 import 'package:services_catalog/di.dart';
 import 'package:services_catalog/entities/provider_model.dart';
 import 'package:services_catalog/my_color.dart';
@@ -38,9 +39,7 @@ class UserProfilePage extends StatelessWidget {
                   isEdit: true,
                   onClicked: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => EditProfilePage(
-                        imagePath: providerModel.imagePath,
-                      ),
+                      builder: (context) => AddUserPage(providerModel: providerModel,)
                     ),
                   ),
                 ),
