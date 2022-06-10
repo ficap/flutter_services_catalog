@@ -4,7 +4,7 @@ import 'package:flutter_map/plugin_api.dart';
 
 class StreamMarkerPlugin<T> extends MapPlugin {
   @override
-  Widget createLayer(LayerOptions options, MapState mapState, Stream<Null>? stream) {
+  Widget createLayer(LayerOptions options, MapState mapState, Stream<void>? stream) {
     StreamMarkerLayerOptions<T> layerOptions =
     options as StreamMarkerLayerOptions<T>;
     

@@ -35,8 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.1.0
-  routemaster: ^0.9.5
-  provider: ^6.0.2
   get_it: ^7.2.0
   injectable: ^1.5.3
 
@@ -44,7 +42,6 @@ dependencies:
   firebase_database: ^9.0.8
   firebase_auth: ^3.3.11
   cloud_firestore: ^3.1.10
-  image_picker: ^0.8.5
   path_provider: ^2.0.9
   file: ^6.1.2
   firebase_image: ^1.1.1
@@ -52,17 +49,15 @@ dependencies:
   flutter_storage_path: ^0.0.2
   carousel_slider: ^4.1.1
   file_picker: ^4.5.1
-  shared_preferences: ^2.0.14
 
-  flutter_map: ^0.14.0
+  flutter_map: ^1.0.0
   latlong2: ^0.8.1
-  flutter_typeahead: ^3.2.5
+  flutter_typeahead: ^4.0.0
   osm_nominatim: any
 
   json_annotation: ^4.4.0
   uuid: ^3.0.6
   rxdart: ^0.27.3
-  flutter_spinkit: ^5.1.0
   url_launcher: ^6.1.2
 
 dev_dependencies:
@@ -74,7 +69,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
   # Can be dev dependency. Is used only for generating model_name_model.g.dart
   # file using 'flutter pub run build_runner build'.

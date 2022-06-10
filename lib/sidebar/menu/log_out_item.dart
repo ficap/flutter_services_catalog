@@ -16,7 +16,7 @@ class LogOutItem extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
 
-          MenuItem(
+          SideMenuItem(
               text: 'Logout',
               icon: Icons.logout,
               onClicked: () => {
