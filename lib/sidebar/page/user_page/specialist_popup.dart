@@ -52,7 +52,7 @@ class SpecialistPage extends StatelessWidget {
             ],
           ),
 
-          CarouselSliderWidget(uid: model.id, addingEnabled: false,),
+          CarouselSliderWidget(uid: model.id, urlList: model.pictureUrls.split(";")),
           const SizedBox(height: 24),
         ],
       ),

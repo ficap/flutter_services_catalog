@@ -15,8 +15,8 @@ class CarouselSliderWidget extends StatelessWidget {
   final String uid;
   static int imageCount = 0;
   final Storage storage = Storage();
-  final bool addingEnabled;
-  CarouselSliderWidget({Key? key, required this.uid, this.addingEnabled = true}) : super(key: key);
+  final List<String> urlList;
+  CarouselSliderWidget({Key? key, required this.uid, required this.urlList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,41 +28,75 @@ class CarouselSliderWidget extends StatelessWidget {
             if (!snapshot.hasData || snapshot.data == null) {
               return Container();
             }
+
             final providerModel = snapshot.data!;
 
-            if(providerModel.pictureUrls == "empty") {
+            if(providerModel.pictureUrls == "empty" && uid == providerModel.id) {
               return addButton(context: context, providerModel: providerModel);
             }
 
-            final urlList = providerModel.pictureUrls.split(";");
-            return Column(
-              children: [
-                CarouselSlider.builder(
-                  options: CarouselOptions(
-                    height: 400,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.8,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
+            if (uid == providerModel.id) {
+              return Column(
+                children: [
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                      height: 400,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration: const Duration(
+                          milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                    itemCount: urlList.length,
+                    itemBuilder: (context, int itemIndex, int pageViewIndex) {
+                      return Image(
+                        image: FirebaseImage(urlList[itemIndex]),
+                      );
+                    },
                   ),
-                  itemCount: urlList.length,
-                  itemBuilder: (context, int itemIndex, int pageViewIndex) {
-                    return Image(
-                      image: FirebaseImage(urlList[itemIndex]),
-                    );
-                  },
-                ),
-                addButton(context: context, providerModel: providerModel),
-              ],
-            );
+                  addButton(context: context, providerModel: providerModel),
+                ],
+              );
+            }
+            else {
+              return Column(
+                children: [
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                      height: 400,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration: const Duration(
+                          milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                    itemCount: urlList.length,
+                    itemBuilder: (context, int itemIndex, int pageViewIndex) {
+                      return Image(
+                        image: FirebaseImage(urlList[itemIndex]),
+                      );
+                    },
+                  ),
+                ],
+              );
+            }
+
           },
+
         ),
       ],
     );

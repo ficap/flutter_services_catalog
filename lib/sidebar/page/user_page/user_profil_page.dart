@@ -72,7 +72,9 @@ class UserProfilePage extends StatelessWidget {
                   ],
                 ),
 
-                CarouselSliderWidget(uid: providerModel.id),
+                CarouselSliderWidget(uid: providerModel.id, urlList: providerModel.pictureUrls.split(";")),
+
+
                 const SizedBox(height: 24),
               ],
             );
